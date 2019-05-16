@@ -9,8 +9,39 @@
                         {{ session('status') }}
                     </div>
                 @endif
-                <table class="table table-striped">
                     <h2>Feedbacks</h2>
+                    <p>
+                    <form name="sortForm" action="/" method="get">
+                        <select name="sorting" onchange="document.forms['sortForm'].submit()">
+                            <option>select sort</option>
+                            <option @if(\App\Http\Helpers\SortHelper::$sorting == "user_name+asc")
+                                    selected
+                                    @endif
+                                    value="user_name+asc">Name A-Z</option>
+                            <option @if(\App\Http\Helpers\SortHelper::$sorting == "user_name+desc")
+                                    selected
+                                    @endif
+                                    value="user_name+desc">Name Z-A</option>
+                            <option @if(\App\Http\Helpers\SortHelper::$sorting == "email+asc")
+                                    selected
+                                    @endif
+                                    value="email+asc">Email A-Z</option>
+                            <option @if(\App\Http\Helpers\SortHelper::$sorting == "email+desc")
+                                    selected
+                                    @endif
+                                    value="email+desc">Email Z-A</option>
+                            <option @if(\App\Http\Helpers\SortHelper::$sorting == "created_at+asc")
+                                    selected
+                                    @endif
+                                    value="created_at+asc">Date oldest</option>
+                            <option @if(\App\Http\Helpers\SortHelper::$sorting == "created_at+desc")
+                                    selected
+                                    @endif
+                                    value="created_at+desc">Date newest</option>
+                        </select>
+                    </form>
+                    </p>
+                <table class="table table-striped">
                     <thead>
                     <tr>
                         <th>Photo</th>
@@ -18,13 +49,13 @@
                         <th>Message</th>
                         <th>E-mail</th>
                         @if(!auth()->guest() && auth()->user()->isAdmin === 1)
-                            <td>delete</td>
+                            <th>delete</th>
                         @endif
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($feedbacks as $fb)
-                        <tr>
+                        <tr style="height:100px;">
                             <td><img src="{{ asset('storage/' . $fb->photo_name) }}" alt="img"
                                      style="display: block;max-width: 100px; max-height: 100px; width: auto; height: auto;"></td>
                             <td>{{ $fb->user_name }}</td>

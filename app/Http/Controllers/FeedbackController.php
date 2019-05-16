@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Feedback;
+use App\Http\Helpers\SortHelper;
 use App\Http\Requests\FeedbackRequest;
 
 class FeedbackController extends Controller
@@ -20,5 +21,11 @@ class FeedbackController extends Controller
     {
         Feedback::destroy($id);
         return redirect('/')->with('status', 'Feedback successfully removed');
+    }
+
+    public function main()
+    {
+        $sorting = SortHelper::getSortAndOrder();
+        return view('main', ['feedbacks' => Feedback::orderBy($sorting['sort'], $sorting['order'])->get()]);
     }
 }

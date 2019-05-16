@@ -27,7 +27,7 @@ class FeedbackRequest extends FormRequest
             'user_name' => 'required|max:50',
             'email' => 'required|email',
             'message' => 'required|max:200',
-            'photo' => 'mimes:jpeg,gif,png',
+            'photo' => 'required|mimes:jpeg,gif,png',
         ];
     }
 }
