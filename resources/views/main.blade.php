@@ -10,37 +10,7 @@
                     </div>
                 @endif
                     <h2>Feedbacks</h2>
-                    <p>
-                    <form name="sortForm" action="/" method="get">
-                        <select name="sorting" onchange="document.forms['sortForm'].submit()">
-                            <option>select sort</option>
-                            <option @if(\App\Http\Helpers\SortHelper::$sorting == "user_name+asc")
-                                    selected
-                                    @endif
-                                    value="user_name+asc">Name A-Z</option>
-                            <option @if(\App\Http\Helpers\SortHelper::$sorting == "user_name+desc")
-                                    selected
-                                    @endif
-                                    value="user_name+desc">Name Z-A</option>
-                            <option @if(\App\Http\Helpers\SortHelper::$sorting == "email+asc")
-                                    selected
-                                    @endif
-                                    value="email+asc">Email A-Z</option>
-                            <option @if(\App\Http\Helpers\SortHelper::$sorting == "email+desc")
-                                    selected
-                                    @endif
-                                    value="email+desc">Email Z-A</option>
-                            <option @if(\App\Http\Helpers\SortHelper::$sorting == "created_at+asc")
-                                    selected
-                                    @endif
-                                    value="created_at+asc">Date oldest</option>
-                            <option @if(\App\Http\Helpers\SortHelper::$sorting == "created_at+desc")
-                                    selected
-                                    @endif
-                                    value="created_at+desc">Date newest</option>
-                        </select>
-                    </form>
-                    </p>
+                    @include('sorting')
                 <table class="table table-striped">
                     <thead>
                     <tr>

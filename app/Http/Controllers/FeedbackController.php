@@ -14,18 +14,23 @@ class FeedbackController extends Controller
         $validated = $request->validated();
         $validated['photo_name'] = str_replace('public/', '' , $path);
         Feedback::create($validated);
+
         return redirect('/')->with('status', 'Feedback successfully added');
     }
 
     public function delete($id)
     {
         Feedback::destroy($id);
+
         return redirect('/')->with('status', 'Feedback successfully removed');
     }
 
     public function main()
     {
-        $sorting = SortHelper::getSortAndOrder();
-        return view('main', ['feedbacks' => Feedback::orderBy($sorting['sort'], $sorting['order'])->get()]);
+        $sorting = SortHelper::getSortAndOrder(Feedback::ALLOWED_SORT, Feedback::DEFAULT_SORT);
+
+        return view('main', ['feedbacks' => Feedback::orderBy($sorting['sort'], $sorting['order'])->get(),
+                                   'sorting' => Feedback::ALLOWED_SORT,
+        ]);
     }
 }
