@@ -17,7 +17,6 @@ class SortHelper
             $res['sort'] = in_array($sorting[0], $allowed_sort) ? $sorting[0] : NULL ?? $d_sort;
             $res['order'] = in_array($sorting[1] ?? NULL, self::ALLOWED_ORDER) ? $sorting[1] : NULL ?? $d_order;
         }
-        self::$sorting = $res;
 
         return $res;
     }
